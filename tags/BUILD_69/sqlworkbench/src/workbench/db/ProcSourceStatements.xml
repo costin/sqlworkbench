@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.4.0_01" class="java.beans.XMLDecoder"> 
+ <object class="java.util.HashMap"> 
+  <void method="put"> 
+   <string>Oracle</string> 
+   <object class="workbench.db.GetMetaDataSql"> 
+    <void property="baseSql"> 
+     <string>SELECT text FROM all_source</string> 
+    </void> 
+    <void property="objectNameField"> 
+     <string>name</string> 
+    </void> 
+    <void property="orderBy"> 
+     <string>ORDER BY TYPE,LINE</string> 
+    </void> 
+    <void property="schemaField"> 
+     <string>owner</string> 
+    </void> 
+    <void property="useUpperCase"> 
+     <boolean>true</boolean> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="put"> 
+   <string>ThinkSQL Relational Database Management System</string> 
+   <object class="workbench.db.GetMetaDataSql"> 
+    <void property="baseSql"> 
+     <string>SELECT routine_definition FROM information_schema.routines</string> 
+    </void> 
+    <void property="objectNameField"> 
+     <string>ROUTINE_NAME</string> 
+    </void> 
+    <void property="schemaField"> 
+     <string>ROUTINE_SCHEMA</string> 
+    </void> 
+    <void property="useUpperCase"> 
+     <boolean>false</boolean> 
+    </void> 
+   </object> 
+  </void> 
+  
+  <void method="put"> 
+   <string>Oracle8</string> 
+   <object class="workbench.db.GetMetaDataSql"> 
+    <void property="baseSql"> 
+     <string>SELECT text FROM all_source</string> 
+    </void> 
+    <void property="objectNameField"> 
+     <string>name</string> 
+    </void> 
+    <void property="orderBy"> 
+     <string>ORDER BY TYPE,LINE</string> 
+    </void> 
+    <void property="schemaField"> 
+     <string>owner</string> 
+    </void> 
+    <void property="useUpperCase"> 
+     <boolean>true</boolean> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="put"> 
+   <string>Microsoft SQL Server</string> 
+   <object class="workbench.db.GetMetaDataSql"> 
+    <void property="baseSql"> 
+     <string>exec sp_helptext</string> 
+    </void> 
+    <void property="isProcedureCall"> 
+     <boolean>true</boolean> 
+    </void> 
+    <void property="objectNameArgumentPos"> 
+     <int>1</int> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="put"> 
+   <string>PostgreSQL</string> 
+   <object class="workbench.db.GetMetaDataSql"> 
+    <void property="baseSql"> 
+     <string>SELECT ''''|| p.prosrc|| '''\nLANGUAGE '||l.lanname
+FROM pg_proc p, pg_language l
+where p.prolang = l.oid
+</string> 
+    </void> 
+    <void property="objectNameField"> 
+     <string>p.proname</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="put"> 
+   <string>Firebird</string> 
+   <object class="workbench.db.GetMetaDataSql"> 
+    <void property="baseSql"> 
+     <string>SELECT RDB$PROCEDURE_SOURCE FROM RDB$PROCEDURES</string> 
+    </void> 
+    <void property="objectNameField"> 
+     <string>RDB$PROCEDURE_NAME</string> 
+    </void> 
+    <void property="schemaField"> 
+     <string>RDB$OWNER_NAME</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="put"> 
+   <string>Adaptive Server Anywhere</string> 
+   <object class="workbench.db.GetMetaDataSql"> 
+    <void property="baseSql"> 
+     <string>select syscomments.text  
+ from sysobjects, syscomments  
+ where sysobjects.id = syscomments.id  
+and  sysobjects.type = &apos;P&apos;</string> 
+    </void> 
+    <void property="objectNameField"> 
+     <string>sysobjects.name</string> 
+    </void> 
+    <void property="orderBy"> 
+     <string> order by syscomments.colid</string> 
+    </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 
