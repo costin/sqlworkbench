@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.4.0_01" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="workbench.db.DbDriver">
+    <void property="driverClass">
+     <string>org.hsqldb.jdbcDriver</string>
+    </void>
+    <void property="library">
+     <string>hsqldb.jar</string>
+    </void>
+    <void property="name">
+     <string>HSQLDB</string>
+    </void>
+    <void property="sampleUrl">
+     <string>jdbc:hsqldb:(path to dababase file)</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="workbench.db.DbDriver">
+    <void property="driverClass">
+     <string>com.inet.tds.TdsDriver</string>
+    </void>
+    <void property="library">
+     <string>Una2000.jar</string>
+    </void>
+    <void property="name">
+     <string>iNet MS SQL Driver</string>
+    </void>
+    <void property="sampleUrl">
+     <string>jdbc:inetdae:(servername):1433?database=(dbname)</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="workbench.db.DbDriver">
+    <void property="driverClass">
+     <string>com.microsoft.jdbc.sqlserver.SQLServerDriver</string>
+    </void>
+    <void property="library">
+     <string>msbase.jar;mssqlserver.jar;msutil.jar</string>
+    </void>
+    <void property="name">
+     <string>Microsoft JDBC Driver</string>
+    </void>
+    <void property="sampleUrl">
+     <string>jdbc:microsoft:sqlserver://(server):(port);DatabaseName=(dbname)</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="workbench.db.DbDriver">
+    <void property="driverClass">
+     <string>com.mysql.jdbc.Driver</string>
+    </void>
+    <void property="library">
+     <string>mm.mysql-2.0.4-bin.jar</string>
+    </void>
+    <void property="name">
+     <string>MySQL</string>
+    </void>
+    <void property="sampleUrl">
+     <string>jdbc:mysql://&lt;HOST>:&lt;PORT>/&lt;DB></string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="workbench.db.DbDriver">
+    <void property="driverClass">
+     <string>oracle.jdbc.OracleDriver</string>
+    </void>
+    <void property="library">
+     <string>ojdbc14.jar</string>
+    </void>
+    <void property="name">
+     <string>Oracle</string>
+    </void>
+    <void property="sampleUrl">
+     <string>jdbc:oracle:thin:@(host):(port):(sid)</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="workbench.db.DbDriver">
+    <void property="driverClass">
+     <string>sun.jdbc.odbc.JdbcOdbcDriver</string>
+    </void>
+    <void property="library">
+     <string></string>
+    </void>
+    <void property="name">
+     <string>ODBC Bridge</string>
+    </void>
+    <void property="sampleUrl">
+     <string>jdbc:odbc:&lt;dsn name></string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="workbench.db.DbDriver">
+    <void property="driverClass">
+     <string>de.sag.jdbc.adabasd.ADriver</string>
+    </void>
+    <void property="library">
+     <string>adabasd.jar</string>
+    </void>
+    <void property="name">
+     <string>Adabas</string>
+    </void>
+    <void property="sampleUrl">
+     <string>jdbc:adabasd://&lt;server&gt;/&lt;database&gt;</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="workbench.db.DbDriver">
+    <void property="driverClass">
+     <string>org.postgresql.Driver</string>
+    </void>
+    <void property="library">
+     <string>pg73jdbc3.jar</string>
+    </void>
+    <void property="name">
+     <string>PostgreSQL</string>
+    </void>
+    <void property="sampleUrl">
+     <string>jdbc:postgresql://host:port/database</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="workbench.db.DbDriver">
+    <void property="driverClass">
+     <string>sun.jdbc.odbc.JdbcOdbcDriver</string>
+    </void>
+    <void property="library">
+     <string></string>
+    </void>
+    <void property="name">
+     <string>Access</string>
+    </void>
+    <void property="sampleUrl">
+     <string>jdbc:odbc:DRIVER={Microsoft Access Driver (*.mdb)};DBQ=&lt;filename&gt;</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
