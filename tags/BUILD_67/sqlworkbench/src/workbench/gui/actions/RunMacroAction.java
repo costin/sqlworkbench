@@ -1,0 +1,61 @@
+package workbench.gui.actions;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.Action;
+
+import workbench.gui.MainWindow;
+import workbench.gui.sql.SqlPanel;
+import workbench.log.LogMgr;
+import workbench.resource.ResourceMgr;
+import workbench.util.StringUtil;
+
+/**
+ *	@author  workbench@kellerer.org
+ */
+public class RunMacroAction extends WbAction
+{
+	private MainWindow client;
+	private String macroName;
+
+	public RunMacroAction(MainWindow aClient, String aName, int index)
+	{
+		super();
+		this.macroName = aName;
+		this.client = aClient;
+		String menuTitle = aName;
+		
+		if (index < 10)
+		{
+			menuTitle = "&" + Integer.toString(index) + " - " + aName;
+		}
+		this.putValue(Action.NAME, menuTitle);
+		this.setMenuItemName(ResourceMgr.MNU_TXT_MACRO);
+		String desc = ResourceMgr.getDescription("MnuTxtRunMacro");
+		String shift = KeyEvent.getKeyModifiersText(KeyEvent.SHIFT_MASK);
+		desc = StringUtil.replace(desc, "%shift%", shift);
+		desc = StringUtil.replace(desc, "%macro%", this.macroName);
+		
+		this.putValue(Action.SHORT_DESCRIPTION, desc);
+		this.setIcon(null);
+	}
+
+	public void executeAction(ActionEvent e)
+	{
+		if (this.client != null && this.macroName != null)
+		{
+			boolean shiftPressed = ((e.getModifiers() & ActionEvent.SHIFT_MASK) == ActionEvent.SHIFT_MASK);
+			SqlPanel sql = this.client.getCurrentSqlPanel();
+			if (sql != null)
+			{	
+				sql.executeMacro(macroName, shiftPressed);
+			}
+			else
+			{
+				LogMgr.logWarning("RunMacroAction.actionPerformed()", "Don't have a curretn SqlPanel!");
+			}
+		}
+	}
+
+}
