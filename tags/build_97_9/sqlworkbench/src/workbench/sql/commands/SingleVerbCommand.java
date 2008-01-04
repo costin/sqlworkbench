@@ -1,0 +1,82 @@
+/*
+ * SingleVerbCommand.java
+ *
+ * This file is part of SQL Workbench/J, http://www.sql-workbench.net
+ *
+ * Copyright 2002-2008, Thomas Kellerer
+ * No part of this code maybe reused without the permission of the author
+ *
+ * To contact the author please send an email to: support@sql-workbench.net
+ *
+ */
+package workbench.sql.commands;
+
+import java.sql.SQLException;
+import workbench.log.LogMgr;
+import workbench.resource.ResourceMgr;
+import workbench.sql.SqlCommand;
+import workbench.sql.StatementRunnerResult;
+
+/**
+ *
+ * @author  support@sql-workbench.net
+ */
+public class SingleVerbCommand extends SqlCommand
+{
+	public static final SqlCommand COMMIT = new SingleVerbCommand("COMMIT");
+	public static final SqlCommand ROLLBACK = new SingleVerbCommand("ROLLBACK");
+
+	private String verb;
+
+	public SingleVerbCommand(String aVerb)
+	{
+		this.verb = aVerb;
+		this.isUpdatingCommand = "COMMIT".equalsIgnoreCase(this.verb);
+	}
+
+	public StatementRunnerResult execute(String aSql)
+		throws SQLException
+	{
+		StatementRunnerResult result = new StatementRunnerResult(aSql);
+		try
+		{
+			if (currentConnection.useJdbcCommit())
+			{
+				if ("COMMIT".equals(this.verb))
+				{
+					currentConnection.getSqlConnection().commit();
+				}
+				else if ("ROLLBACK".equals(this.verb))
+				{
+					currentConnection.getSqlConnection().rollback();
+				}
+			}
+			else
+			{
+				this.currentStatement = currentConnection.createStatement();
+				this.currentStatement.execute(verb);
+			}
+
+			result.addMessage(this.verb + " " + ResourceMgr.getString("MsgKnownStatementOK"));
+			result.setSuccess();
+			processMoreResults(aSql, result, false);
+		}
+		catch (Exception e)
+		{
+			addErrorInfo(result, aSql, e);
+			LogMgr.logSqlError("SingleVerbCommand.execute()", aSql, e);
+		}
+		finally
+		{
+			done();
+		}
+
+		return result;
+	}
+
+	public String getVerb()
+	{
+		return verb;
+	}
+
+}
