@@ -1,0 +1,101 @@
+/*
+ * SqlTabPopup.java
+ *
+ * This file is part of SQL Workbench/J, http://www.sql-workbench.net
+ *
+ * Copyright 2002-2008, Thomas Kellerer
+ * No part of this code maybe reused without the permission of the author
+ *
+ * To contact the author please send an email to: support@sql-workbench.net
+ *
+ */
+package workbench.gui.menu;
+
+import javax.swing.JPopupMenu;
+import workbench.gui.MainWindow;
+import workbench.gui.actions.AddTabAction;
+import workbench.gui.actions.FileDiscardAction;
+import workbench.gui.actions.NewDbExplorerPanelAction;
+import workbench.gui.actions.RemoveTabAction;
+import workbench.gui.actions.RenameTabAction;
+import workbench.gui.sql.EditorPanel;
+import workbench.gui.sql.SqlPanel;
+import workbench.interfaces.MainPanel;
+import workbench.gui.actions.InsertTabAction;
+import workbench.gui.actions.MoveSqlTabLeft;
+import workbench.gui.actions.MoveSqlTabRight;
+import workbench.gui.actions.ToggleExtraConnection;
+
+/**
+ * @author  support@sql-workbench.net
+ */
+public class SqlTabPopup 
+	extends JPopupMenu
+{
+	private AddTabAction add;
+	private NewDbExplorerPanelAction newDbExp;
+	private RemoveTabAction remove;
+	private RenameTabAction rename;
+	private MoveSqlTabLeft moveLeft;
+	private MoveSqlTabRight moveRight;
+	private InsertTabAction insert;
+	
+	public SqlTabPopup(MainWindow aClient)
+	{
+		this.add = new AddTabAction(aClient);
+		this.add(add);
+		this.insert = new InsertTabAction(aClient);
+		this.add(insert);
+		
+		this.remove = new RemoveTabAction(aClient);
+		this.add(remove);
+
+		if (aClient.canRenameTab())
+		{
+			this.rename = new RenameTabAction(aClient);
+			this.add(rename);
+		}
+
+		this.addSeparator();
+		
+		this.newDbExp = new NewDbExplorerPanelAction(aClient, "MnuTxtAddExplorerPanel");
+		this.newDbExp.removeIcon();
+		this.add(newDbExp);
+
+		if (aClient.canUseSeparateConnection())
+		{
+			ToggleExtraConnection toggle = new ToggleExtraConnection(aClient);
+			this.add(toggle.getMenuItem());
+		}
+		
+		MainPanel panel = aClient.getCurrentPanel();
+		if (panel instanceof SqlPanel)
+		{
+			this.addSeparator();
+			
+			SqlPanel spanel = (SqlPanel)panel;
+			int currentIndex = aClient.getCurrentPanelIndex();
+			moveLeft = new MoveSqlTabLeft(aClient);
+			moveLeft.setEnabled(currentIndex > 0);
+			this.add(moveLeft);
+			int lastIndex = aClient.getLastSqlPanelIndex();
+			moveRight = new MoveSqlTabRight(aClient);
+			moveRight.setEnabled(currentIndex < lastIndex);
+			this.add(moveRight);
+			
+			this.addSeparator();
+
+			EditorPanel editor = spanel.getEditor();
+			
+			this.add(editor.getFileSaveAction());
+			this.add(editor.getFileOpenAction());
+			this.add(editor.getReloadAction());
+			this.addSeparator();
+			FileDiscardAction discard = new FileDiscardAction(spanel);
+			discard.removeIcon();
+			this.add(discard);
+			this.remove.setEnabled(aClient.canCloseTab());
+		}
+	}
+
+}
